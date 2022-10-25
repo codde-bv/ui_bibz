@@ -96,7 +96,7 @@ module UiBibz::Ui::Core
 
     # Know if component is tapped or not
     def tapped?(block)
-      UiBibz::Utils::Screwdriver.tapped?(block)
+      block.present? && block.parameters.present?
     end
 
     protected
@@ -169,8 +169,9 @@ module UiBibz::Ui::Core
         if read_cache
           read_cache
         else
-          cache.write(options[:cache], pre_render)
-          pre_render
+          res = pre_render
+          cache.write(options[:cache], res)
+          res
         end
       else
         pre_render

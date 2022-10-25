@@ -37,7 +37,7 @@ module UiBibz::Ui::Ux::Tables
     end
 
     # Render html tag with boostrap pagination theme
-    def render
+    def pre_render
       paginate_parameters = { controller: store.controller }
       paginate_parameters = paginate_parameters.merge(store.parameters)
       paginate_parameters = paginate_parameters.merge({ store_id: store.id }) unless store.id.nil?

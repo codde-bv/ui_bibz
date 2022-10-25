@@ -33,7 +33,7 @@ module UiBibz::Ui::Ux::Tables
     end
 
     # Render html tag
-    def render
+    def pre_render
       if @per_page_field.options[:wrap_form] == false
         per_page_html
       else

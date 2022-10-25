@@ -7,7 +7,7 @@ module UiBibz::Ui::Core::Forms::Dropdowns::Components
     # See UiBibz::Ui::Core::Component.initialize
 
     # Render html tag
-    def render
+    def pre_render
       content_tag :div, nil, class: 'dropdown-divider'
     end
   end

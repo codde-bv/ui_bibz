@@ -23,5 +23,18 @@ module UiBibz::Ui
     def generate_id(name = nil)
       "#{name || 'id'}-#{Random.rand(99_999)}"
     end
+
+    def _fix_haml6_block(&block)
+      # <https://github.com/haml/haml/issues/1104>
+      proc { block.binding.receiver.with_output_buffer(&block) }
+    end
+
+    def render
+      if respond_to? :pre_render
+        pre_render
+      else
+        super
+      end
+    end
   end
 end

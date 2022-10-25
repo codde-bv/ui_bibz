@@ -49,14 +49,14 @@ module UiBibz::Ui::Core::Navigations
     attr_accessor :html_options
 
     def initialize(model_or_url, options = {}, &block)
-      @content      = block
+      @content      = _fix_haml6_block(&block)
       @model_or_url = model_or_url
       @options      = options
       @html_options = %i[form_for ui_form_for].exclude?(type) ? html_options_for_form(@model_or_url, new_option) : new_option
     end
 
     # Render html tag
-    def render
+    def pre_render
       case type
       when :form_for
         @form = form_for(@model_or_url, html_options, &@content)

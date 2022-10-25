@@ -9,7 +9,7 @@ module UiBibz::Ui::Ux::Tables
     end
 
     # Render html tag
-    def render
+    def pre_render
       content_tag :div, @html_options do
         concat content_tag(:div, table_name, class: 'title')
         concat TableSearchField.new({ store: @store, wrap_form: @options[:wrap_form] }).render if searchable?

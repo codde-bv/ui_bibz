@@ -11,7 +11,7 @@ module UiBibz::Ui::Ux::Tables
     end
 
     # Render html tag
-    def render
+    def pre_render
       content_tag :div, @html_options do
         concat UiBibz::Ui::Ux::Tables::TablePagination.new(store: @store, wrap_form: @options[:wrap_form]).render
         concat UiBibz::Ui::Ux::Tables::TablePaginationPerPage.new(store: @store, wrap_form: @options[:wrap_form]).render
