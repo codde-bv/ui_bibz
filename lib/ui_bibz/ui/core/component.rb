@@ -63,7 +63,8 @@ module UiBibz::Ui::Core
         @tapped = tapped?(block)
         @html_options = options
         @options = content
-        read_cache = Rails.cache.read(@options.try(:[], :cache))
+        cache_key = @options.try(:[], :cache)
+        read_cache = cache_key.blank? ? nil : Rails.cache.read(cache_key)
         if read_cache.nil?
           context  = eval('self', block.binding) # rubocop:disable Style/EvalWithLocation
           @content = context.capture(&block)
@@ -165,12 +166,12 @@ module UiBibz::Ui::Core
     def render_with_or_without_cache
       if options[:cache]
         cache      = Rails.cache
-        read_cache = cache.read(options[:cache])
+        read_cache = options[:cache].blank? ? nil : cache.read(options[:cache])
         if read_cache
           read_cache
         else
           res = pre_render
-          cache.write(options[:cache], res)
+          cache.write(options[:cache], res) unless options[:cache].blank?
           res
         end
       else
